@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import pal from '../palette.json';
 import { STEPS } from '../data';
@@ -7,7 +6,8 @@ import BlurText from './BlurText';
 const N = pal.length;
 
 const src = (i) =>
- `${import.meta.env.BASE_URL}frames/f${String(i + 1).padStart(3, '0')}.webp`;
+  `${import.meta.env.BASE_URL}frames/f${String(i + 1).padStart(3, '0')}.webp`;
+
 const stepAt = (q) =>
   q < 0.25 ? 0 : q < 0.5 ? 1 : q < 0.75 ? 2 : 3;
 
@@ -18,21 +18,30 @@ export default function Hero({ onProgress }) {
 
   const [step, setStep] = useState(0);
 
+  // Frames load in the background. The page opens after the first few.
   useEffect(() => {
-    let n = 0;
+    const READY = 3; // page opens once this many frames are in
+    const POOL = 8;  // frames loading at the same time
+    let next = 0;
+    let ready = 0;
+    imgs.current = new Array(N);
 
-    imgs.current = pal.map((_, i) => {
+    const pump = () => {
+      if (next >= N) return;
+      const i = next++;
       const im = new Image();
 
       im.onload = im.onerror = () => {
-        onProgress(++n / N);
+        if (i < READY) onProgress(++ready / READY);
         dispatchEvent(new Event('scroll'));
+        pump();
       };
 
       im.src = src(i);
+      imgs.current[i] = im;
+    };
 
-      return im;
-    });
+    for (let k = 0; k < POOL; k++) pump();
   }, []);
 
   useEffect(() => {
@@ -60,7 +69,14 @@ export default function Hero({ onProgress }) {
         avg.map((v) => Math.round(v * 0.62)).join(',')
       );
 
-      const im = imgs.current[Math.round(f)];
+      // If this frame is not loaded yet, show the last loaded one before it
+      let k = Math.round(f);
+      let im = imgs.current[k];
+      while (k > 0 && !(im && im.complete && im.naturalWidth)) {
+        k--;
+        im = imgs.current[k];
+      }
+
       const c = cvs.current;
 
       if (im && im.complete && im.naturalWidth) {
