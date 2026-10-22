@@ -1,0 +1,234 @@
+.sec {
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 110px 6vw 40px;
+}
+
+.sub {
+	opacity: .75;
+	margin: 6px 0 36px;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+	gap: 20px;
+}
+
+/* Glass card */
+.glass {
+	--mx: 50%;
+	--my: 50%;
+	position: relative;
+	padding: 26px;
+	border-radius: 20px;
+	border: 1px solid rgba(255, 255, 255, .22);
+	background: linear-gradient(135deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .015));
+	backdrop-filter: blur(20px) saturate(1.5);
+	-webkit-backdrop-filter: blur(20px) saturate(1.5);
+	box-shadow: 0 10px 40px rgba(0, 0, 0, .25);
+	overflow: hidden;
+	transition: transform .35s cubic-bezier(.2, .8, .2, 1), border-color .35s;
+}
+
+.glass::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(300px circle at var(--mx) var(--my), rgba(var(--accent), .55), transparent 70%);
+	opacity: 0;
+	transition: opacity .3s;
+}
+
+.glass::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, .14) 50%, transparent 65%);
+	transform: translateX(-120%);
+	transition: transform .8s;
+}
+
+.glass:hover {
+	transform: scale(1.06);
+	border-color: rgba(var(--accent), .8);
+}
+
+.glass:hover::before {
+	opacity: 1;
+}
+
+.glass:hover::after {
+	transform: translateX(120%);
+}
+
+.glass > * {
+	position: relative;
+}
+
+.ic {
+	display: inline-block;
+	font-size: 34px;
+	transition: transform .45s cubic-bezier(.2, .8, .2, 1);
+}
+
+.glass:hover .ic {
+	transform: scale(1.7) translateY(-6px) rotate(-10deg);
+}
+
+.glass h3 {
+	font-size: 20px;
+	margin: 10px 0 4px;
+	transition: color .3s, transform .3s;
+}
+
+.glass:hover h3 {
+	color: rgb(var(--accent));
+	transform: translateY(4px);
+}
+
+.glass p {
+	font-size: 14px;
+	opacity: .8;
+}
+
+.glass:hover p {
+	opacity: 1;
+}
+
+/* Variety cards: round image, zoom, price, add to cart */
+.var {
+	text-align: center;
+}
+
+.slot {
+	position: relative;
+	aspect-ratio: 1;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+	margin-bottom: 14px;
+}
+
+.var .slot {
+	width: 80%;
+	margin: 0 auto 16px;
+	border: 0;
+	border-radius: 50%;
+	background: radial-gradient(circle at 30% 25%, rgba(var(--accent), .55), rgba(0, 0, 0, .25));
+	font-size: 72px;
+}
+
+.slot img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 50%;
+	transition: transform .7s cubic-bezier(.2, .8, .2, 1);
+}
+
+.var:hover .slot img {
+	transform: scale(1.15);
+}
+
+.zm {
+	display: block;
+	transition: transform .7s cubic-bezier(.2, .8, .2, 1);
+}
+
+.var:hover .zm {
+	transform: scale(1.45) rotate(-6deg);
+}
+
+.pr {
+	font-weight: 700;
+	color: rgb(var(--accent));
+	margin: 2px 0 14px !important;
+	opacity: 1 !important;
+	font-size: 16px !important;
+}
+
+.cart {
+	width: 100%;
+	padding: 11px;
+	border: 0;
+	border-radius: 12px;
+	background: #ffdd00;
+	color: #1a110c;
+	font-weight: 700;
+	transition: transform .15s;
+}
+
+.cart:hover {
+	transform: translateY(-2px);
+}
+
+.cart:active {
+	transform: scale(.97);
+}
+
+/* 3D tilt on hover (not for the order form) */
+.glass:not(.form) {
+	will-change: transform;
+	transition: transform .25s ease-out, border-color .3s, box-shadow .3s;
+}
+
+.glass:not(.form):hover {
+	transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.09);
+	border-color: rgba(var(--accent), .95);
+	z-index: 2;
+}
+
+/* Neon border: a bold glowing light that runs around each card */
+@property --na {
+	syntax: "<angle>";
+	inherits: false;
+	initial-value: 0deg;
+}
+
+.glass:not(.form) {
+	box-shadow: 0 0 26px rgba(255, 190, 60, .35), 0 10px 40px rgba(0, 0, 0, .25);
+}
+
+.glass .neon {
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: 4px;
+	pointer-events: none;
+	opacity: .85;
+	transition: opacity .3s;
+	background: conic-gradient(from var(--na), rgba(255, 159, 67, .25) 0 30%, #ff9f43 60%, #ffdd00 85%, #fff3b0 95%, rgba(255, 159, 67, .25) 100%);
+	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	filter: drop-shadow(0 0 8px #ffdd00) drop-shadow(0 0 16px rgba(255, 150, 40, .8));
+	animation: neonspin 4s linear infinite;
+}
+
+.glass:hover .neon {
+	opacity: 1;
+}
+
+.glass:not(.form):hover {
+	box-shadow: 0 0 34px rgba(255, 200, 60, .45), 0 0 70px rgba(255, 150, 40, .25), 0 28px 60px rgba(0, 0, 0, .5);
+}
+
+.glass:hover h3 {
+	text-shadow: 0 0 14px rgba(255, 210, 80, .85);
+}
+
+@keyframes neonspin {
+	to {
+		--na: 360deg;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.glass .neon {
+		animation: none;
+	}
+}

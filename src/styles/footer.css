@@ -1,0 +1,143 @@
+footer {
+	margin-top: 120px;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+	padding-bottom: 28px;
+}
+
+.strip {
+	overflow: hidden;
+	white-space: nowrap;
+	padding: 16px 0;
+	border-block: 1px solid rgba(246, 234, 216, 0.25);
+	font-style: italic;
+	font-size: 19px;
+}
+
+.strip > div {
+	display: flex;
+	width: max-content;
+	animation: run 36s linear infinite;
+}
+
+.strip span {
+	display: flex;
+}
+
+.strip em {
+	padding: 0 26px;
+}
+
+.strip em::after {
+	margin-left: 52px;
+	font-style: normal;
+}
+
+.strip em:nth-child(3n + 1)::after {
+	content: "🫘";
+}
+
+.strip em:nth-child(3n + 2)::after {
+	content: "🧊";
+}
+
+.strip em:nth-child(3n)::after {
+	content: "🍫";
+}
+
+@keyframes run {
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+.mark {
+	font-size: clamp(56px, 13vw, 190px);
+	line-height: 1.05;
+	text-align: center;
+	margin: 56px 0;
+	color: transparent;
+	-webkit-text-stroke: 2px rgb(var(--accent));
+	transition: color 0.5s, text-shadow 0.5s;
+	cursor: default;
+}
+
+.mark:hover {
+	color: rgba(var(--accent), 0.9);
+	text-shadow: 0 0 50px rgba(var(--accent), 0.6);
+}
+
+.fgrid {
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 0 6vw;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr) 1.3fr;
+	gap: 32px;
+	align-items: start;
+}
+
+.fgrid h4 {
+	font-family: var(--disp);
+	font-weight: 400;
+	font-size: 20px;
+	margin-bottom: 10px;
+	color: rgb(var(--accent));
+}
+
+.fgrid p {
+	font-size: 15px;
+	opacity: 0.85;
+}
+
+.fbase {
+	max-width: 1180px;
+	margin: 56px auto 0;
+	padding: 22px 6vw 0;
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+	flex-wrap: wrap;
+	border-top: 1px solid rgba(246, 234, 216, 0.2);
+	font-size: 14px;
+}
+
+.fbase nav {
+	display: flex;
+	gap: 22px;
+}
+
+.fbase a:hover {
+	color: rgb(var(--accent));
+}
+
+.ring {
+	position: relative;
+	width: min(100%, 220px);
+	aspect-ratio: 1;
+	justify-self: center;
+}
+
+.ring svg {
+	width: 100%;
+	height: 100%;
+	animation: spin 20s linear infinite;
+}
+
+.ring text {
+	fill: #f6ead8;
+	font: 500 13.5px var(--font);
+}
+
+.ring span {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	font-size: 46px;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}

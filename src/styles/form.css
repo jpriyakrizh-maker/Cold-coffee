@@ -1,0 +1,100 @@
+.add {
+	justify-self: start;
+	font-size: 24px;
+}
+
+.form {
+	display: grid;
+	gap: 22px;
+}
+
+.form:hover {
+	transform: none;
+}
+
+.f2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 18px;
+}
+
+.form label {
+	display: grid;
+	gap: 6px;
+	font-size: 14px;
+}
+
+.fl {
+	display: block;
+	font-size: 14px;
+	margin-bottom: 8px;
+}
+
+.form input[type=text],
+.form input:not([type]),
+.form input[inputmode] {
+	padding: 13px 16px;
+	border-radius: 12px;
+	border: 1px solid rgba(255, 255, 255, .28);
+	background: rgba(255, 255, 255, .07);
+	color: var(--cream);
+	font: inherit;
+}
+
+.form input::placeholder {
+	color: rgba(246, 234, 216, .45);
+}
+
+.opts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.opts button,
+.qty button {
+	padding: 10px 18px;
+	border-radius: 999px;
+	background: none;
+	border: 1px solid rgba(255, 255, 255, .35);
+	font-weight: 500;
+}
+
+.opts .on {
+	background: var(--cream);
+	color: #1a110c;
+	border-color: transparent;
+}
+
+.bot {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+
+.tot {
+	font-size: 15px;
+}
+
+.tot b {
+	font-family: var(--disp);
+	font-size: 34px;
+	margin-left: 8px;
+}
+
+#res {
+	display: none;
+	padding: 14px 18px;
+	border-radius: 14px;
+	background: rgba(255, 221, 0, .14);
+	border: 1px solid rgba(255, 221, 0, .5);
+}
+
+#res.show {
+	display: block;
+}
+/* Order form: no cursor glow or white shine */
+.form::before,
+.form::after{display:none}

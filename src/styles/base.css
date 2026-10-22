@@ -1,0 +1,46 @@
+:root {
+	--bg: 24, 16, 12;
+	--accent: 200, 160, 110;
+	--cream: #f6ead8;
+	--font: 'Manrope', system-ui, sans-serif;
+	--disp: 'Anton', Impact, sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: var(--font);
+	color: var(--cream);
+	background: rgb(var(--bg));
+	transition: background .2s linear;
+	line-height: 1.6;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+button {
+	font: inherit;
+	cursor: pointer;
+	color: inherit;
+}
+
+:focus-visible {
+	outline: 2px solid rgb(var(--accent));
+	outline-offset: 3px;
+}
+
+:root {
+	--accent: 205, 160, 104;
+	--font: 'Plus Jakarta Sans', system-ui, sans-serif;
+	--disp: 'Fraunces', Georgia, serif;
+}
